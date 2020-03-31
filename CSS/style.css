@@ -1,0 +1,728 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:500,500i,700,700i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bellota+Text:400,400i,700,700i|Rubik&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.myBTN {
+  font-size: 1.8em;
+  color: whitesmoke;
+  background-color: rgba(10, 5, 80, 0.35);
+  border: 1px solid white;
+}
+
+.myBTN:hover {
+  color: #11093a;
+  background-color: rgba(210, 209, 219, 0.35);
+  border: 1px solid #11093a;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0 auto;
+  font-size: 10px;
+  background-image: url("../image/1519160.jpg");
+  background-size: cover;
+}
+
+body::-webkit-scrollbar {
+  width: 2em;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgba(66, 75, 128, 0.342);
+  -webkit-box-shadow: inset 0 0 10px rgba(230, 245, 218, 0.3);
+          box-shadow: inset 0 0 10px rgba(230, 245, 218, 0.3);
+  border: 2px solid rgba(10, 5, 80, 0.35);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(9, 15, 112, 0.295);
+  outline: 1px solid slategrey;
+  border: 3px solid rgba(204, 202, 226, 0.75);
+  border-radius: 5px;
+}
+
+body #myHeader {
+  position: relative;
+  z-index: 0;
+  color: black;
+  height: 182px;
+}
+
+body #myHeader #headlineBox {
+  position: relative;
+  height: 60%;
+  background-color: rgba(59, 21, 21, 0.65);
+}
+
+body #myHeader #headlineBox h1 {
+  color: blanchedalmond;
+  margin-bottom: 0;
+  text-shadow: 2px 2px 2px #42b102;
+  letter-spacing: 3px;
+  font-family: 'Bellota Text', cursive;
+  font-style: italic;
+  font-size: 4.6em;
+}
+
+body #myHeader #borderBottomHeadline {
+  border-bottom: 3px solid #180000;
+  z-index: -2;
+  margin-right: 100px;
+}
+
+body #myHeader #borderLeftImg {
+  border-left: 3px solid #180000;
+  position: absolute;
+  top: 0;
+  right: 100px;
+  height: 130px;
+  z-index: -1;
+}
+
+body #myHeader #imgBox {
+  float: right;
+  position: absolute;
+  border-bottom: 3px solid #180000;
+  top: 30px;
+  right: 0;
+  width: 100px;
+  height: 100px;
+}
+
+body #myHeader #imgBox img {
+  width: 100%;
+  height: 100%;
+}
+
+body #myHeader nav {
+  z-index: -2;
+  height: 40%;
+  border-bottom: 1px solid white;
+  background-color: rgba(245, 245, 245, 0.55);
+}
+
+body #myHeader nav div.container #navCollapseBtn {
+  z-index: 3;
+}
+
+body #myHeader nav div.container div.collapse {
+  z-index: 2;
+}
+
+body #myHeader nav div.container div.collapse ul li :hover {
+  background-color: rgba(10, 5, 80, 0.35);
+  color: whitesmoke;
+}
+
+body #myHeader nav div.container div.collapse ul li a {
+  font-size: 1.8em;
+  color: #11093a;
+}
+
+body #innerContent {
+  position: relative;
+  width: 100%;
+  height: 671px;
+  padding: 0.5% 0 0 0;
+  border-bottom: 1px solid black;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(29, 250, 9, 0.55)), color-stop(rgba(32, 140, 190, 0.65)), to(rgba(223, 12, 12, 0.7)));
+  background-image: linear-gradient(to bottom right, rgba(29, 250, 9, 0.55), rgba(32, 140, 190, 0.65), rgba(223, 12, 12, 0.7));
+}
+
+body #innerContent #sctn1 {
+  width: 100%;
+  position: relative;
+}
+
+body #innerContent #sctn1 .container-fluid .row div#buttonBox {
+  position: absolute;
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  right: 30%;
+}
+
+body #innerContent #sctn1 .container-fluid .row div#buttonBox #checkSwitch {
+  display: inline;
+}
+
+body #innerContent #sctn1 .container-fluid .row div#buttonBox #checkSwitch label {
+  font-size: 2em;
+  color: #fdfdfd;
+}
+
+body #innerContent #sctn1 .container-fluid .row div#buttonBox #checkSwitch input#exampleCheck1 {
+  margin: 10px 0 0 5px;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  top: 5%;
+  height: 83%;
+  z-index: 1;
+  padding: 0 5% 0 5%;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards::-webkit-scrollbar {
+  width: 2em;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards::-webkit-scrollbar-track {
+  background-color: rgba(66, 75, 128, 0.342);
+  -webkit-box-shadow: inset 0 0 10px rgba(230, 245, 218, 0.3);
+          box-shadow: inset 0 0 10px rgba(230, 245, 218, 0.3);
+  border: 2px solid rgba(10, 5, 80, 0.35);
+  border-radius: 5px;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards::-webkit-scrollbar-thumb {
+  background-color: rgba(45, 187, 17, 0.295);
+  outline: 1px solid slategrey;
+  border: 3px solid rgba(204, 202, 226, 0.75);
+  border-radius: 5px;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards #parallaxImg {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  height: 50%;
+  background-image: url("../image/1519129.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox {
+  border: 2px solid #0b063f;
+  width: 31.5%;
+  margin-bottom: 2%;
+  background-color: rgba(235, 220, 157, 0.45);
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body h5 {
+  font-size: 2.5em;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body p {
+  font-size: 1.5em;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body button:hover {
+  color: #11093a;
+  background-color: rgba(219, 115, 115, 0.35);
+  border: 1px solid #11093a;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse {
+  z-index: 2;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body {
+  background-color: rgba(32, 140, 190, 0.35);
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body h5 {
+  width: 100%;
+  padding-top: 5%;
+  clear: both;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p {
+  clear: both;
+  background-color: rgba(0, 0, 0, 0.25);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p span {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p #spn1 {
+  color: red;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p #spn3 {
+  color: #15ff00;
+}
+
+body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p #spn5 {
+  color: #0400ff;
+}
+
+body #innerContent #sctn1 .container-fluid .row nav {
+  margin-top: 0.5%;
+  position: absolute;
+  bottom: 2%;
+}
+
+body #innerContent #sctn2 {
+  position: absolute;
+  margin: 0 auto;
+  width: 70%;
+  height: 70%;
+  right: 15%;
+  top: 0;
+  z-index: -1;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-family: 'Fira Sans';
+  position: relative;
+  background-image: url("../image/bitcoin-4728496_1920.jpg");
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  left: 25%;
+  height: 65%;
+  width: 50%;
+  border: 10px double blue;
+  border-radius: 25px;
+  z-index: 2;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox .colorBoxes {
+  height: 25%;
+  width: 20%;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor1 {
+  background-color: rgba(228, 198, 26, 0.45);
+  border-top-left-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor2 {
+  background-color: rgba(100, 228, 26, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor3 {
+  background-color: rgba(26, 73, 228, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor4 {
+  background-color: rgba(181, 26, 228, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor5 {
+  background-color: rgba(236, 114, 13, 0.45);
+  border-top-right-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor6 {
+  background-color: rgba(221, 76, 76, 0.55);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor7 {
+  background-color: rgba(58, 225, 231, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor8 {
+  background-color: rgba(7, 36, 90, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor9 {
+  background-color: rgba(147, 228, 171, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor10 {
+  background-color: rgba(236, 55, 155, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor11 {
+  background-color: rgba(18, 102, 15, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor12 {
+  background-color: rgba(94, 208, 223, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor13 {
+  background-color: rgba(26, 73, 228, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor14 {
+  background-color: rgba(19, 77, 4, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor15 {
+  background-color: rgba(179, 86, 11, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor16 {
+  background-color: rgba(151, 26, 26, 0.55);
+  border-bottom-left-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor17 {
+  background-color: rgba(11, 119, 122, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor18 {
+  background-color: rgba(172, 236, 68, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor19 {
+  background-color: rgba(10, 55, 138, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #boxColor20 {
+  background-color: rgba(236, 55, 155, 0.45);
+  border-bottom-right-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox i#myCloseIcon {
+  position: absolute;
+  color: black;
+  text-shadow: 2px 2px 5px #1ed42d;
+  left: 2%;
+  top: 1%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox i#myCloseIcon:hover {
+  color: rgba(214, 16, 16, 0.55);
+  text-shadow: 2px 2px 8px #020208;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox h2 {
+  position: absolute;
+  width: 80%;
+  font-size: 2rem;
+  margin: 0 auto;
+  font-style: italic;
+  color: #0c0d24;
+  text-shadow: 2px 2px 3px #720606;
+  top: 10%;
+  left: 10%;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox h2 span {
+  font-weight: bold;
+  font-style: normal;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox h3 {
+  position: absolute;
+  width: 85%;
+  font-size: 1.5rem;
+  top: 25%;
+  left: 10%;
+  font-style: italic;
+  color: #0c0d24;
+  text-shadow: 2px 2px 3px #720606;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox h3 span {
+  font-weight: bold;
+  font-style: normal;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox button {
+  position: absolute;
+  width: 85%;
+  letter-spacing: 1rem;
+  font-size: 1.5rem;
+  bottom: 5%;
+  right: 7.5%;
+  left: 7.5%;
+  padding: 3% 5%;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 53%;
+  background-image: url("../image/bitcoin-3029371_640.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 47%;
+  border: 1px solid black;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  z-index: 2;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo .insideBox {
+  position: relative;
+  height: 100%;
+  float: left;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice {
+  width: 66.66%;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice #boxColor21 {
+  float: left;
+  width: 33.33%;
+  height: 100%;
+  background-color: rgba(224, 211, 17, 0.459);
+  border-bottom-left-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice #boxColor22 {
+  float: left;
+  width: 33.33%;
+  height: 100%;
+  background-color: rgba(99, 223, 17, 0.35);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice #boxColor23 {
+  float: left;
+  width: 33.33%;
+  height: 100%;
+  background-color: rgba(11, 25, 212, 0.45);
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice h4 {
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  margin-bottom: 0;
+  font-size: 1.7rem;
+  color: black;
+  background-color: rgba(70, 221, 214, 0.35);
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 2px white;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice div#text {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  top: 30%;
+  font-size: 1.2rem;
+  padding: 1% 0;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #d7d8e4;
+  background-color: rgba(0, 0, 0, 0.35);
+  text-shadow: 2px 2px 2px #270606;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice p {
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #coinImgBox {
+  width: 33.33%;
+  border-bottom-right-radius: 15px;
+}
+
+body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #coinImgBox #currCoinImg {
+  background-image: url("../image/110.gif");
+  background-color: rgba(255, 255, 255, 0.45);
+  background-size: cover;
+  border: 5px solid white;
+  width: 100px;
+  height: 100px;
+  margin: 10% auto;
+}
+
+body #innerContent #chartWindow {
+  position: absolute;
+  width: 100vw;
+  height: 65vh;
+  top: 1vh;
+  bottom: 1vh;
+  z-index: -1;
+}
+
+body #innerContent #chartWindow #canvasBox {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 60%;
+  height: 80%;
+  margin: 0 auto;
+  padding: 1% 0 1.5%;
+}
+
+body #innerContent #InfoSctn {
+  overflow-y: scroll;
+  position: absolute;
+  margin: 0.5% auto;
+  left: 7.5%;
+  top: 0;
+  width: 85%;
+  height: 99%;
+  border: 1px solid black;
+  z-index: -1;
+  background-color: rgba(210, 209, 219, 0.75);
+}
+
+body #innerContent #InfoSctn img {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 20%;
+  border: 2px solid #11093a;
+  border-radius: 50%;
+}
+
+body #innerContent #InfoSctn #contactMe {
+  position: absolute;
+  top: 42%;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+body #innerContent #InfoSctn #contactMe a {
+  color: blue;
+  text-decoration: underline;
+}
+
+body #innerContent #InfoSctn #student {
+  position: absolute;
+  text-align: center;
+  padding-top: 0.5%;
+  width: 70%;
+  top: 0;
+  left: 23%;
+  font-size: 2.5em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+body #innerContent #InfoSctn #student span:nth-child(1) {
+  font-style: italic;
+  color: #070649;
+}
+
+body #innerContent #InfoSctn #student span:nth-child(3) {
+  font-size: 0.8em;
+}
+
+body #innerContent #InfoSctn #quickOverview {
+  position: absolute;
+  width: 40%;
+  top: 15%;
+  right: 37%;
+  padding: 1%;
+  border: 1px solid #0b063f;
+  font-size: 1.7em;
+}
+
+body #innerContent #InfoSctn #tech {
+  position: absolute;
+  width: 35%;
+  top: 15%;
+  right: 1%;
+  padding: 1%;
+  border: 1px solid #0b063f;
+  font-size: 1.7em;
+}
+
+body #innerContent #InfoSctn #tech div {
+  float: left;
+}
+
+body #innerContent #InfoSctn #tech div:nth-child(1) span {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+body #innerContent #InfoSctn #tech div:nth-child(2) {
+  margin-left: 5%;
+}
+
+body #innerContent #InfoSctn #tech div:nth-child(2) ul {
+  list-style-position: inside;
+}
+
+body #innerContent #InfoSctn #tech div:nth-child(2) ul ul {
+  padding-left: 5%;
+}
+
+body .modal-backdrop {
+  z-index: 1;
+}
+
+body #myFooter {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  background-color: rgba(100, 228, 26, 0.35);
+}
+
+body #myFooter p {
+  letter-spacing: 0.1em;
+  font-size: 2.5em;
+  color: white;
+  font-style: italic;
+  text-shadow: 2px 2px 2px #0a125e;
+}
+
+body #myFooter p::first-letter {
+  font-size: 1.2em;
+}
+
+body #myFooter p .footerSpan {
+  color: #06c6e7;
+}
+/*# sourceMappingURL=style.css.map */

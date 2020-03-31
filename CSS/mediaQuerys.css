@@ -1,0 +1,384 @@
+@media (max-width: 575.98px) {
+  body #myHeader #headlineBox {
+    height: 50%;
+  }
+  body #myHeader #headlineBox h1 {
+    z-index: 1;
+  }
+  body #myHeader nav {
+    height: 50%;
+  }
+  body #myHeader nav #navCollapseBtn {
+    position: absolute;
+    top: 0;
+  }
+  body #myHeader #borderBottomHeadline {
+    display: none;
+  }
+  body #myHeader nav .container .collapse form #srcBtn {
+    width: 80%;
+    margin-top: 3%;
+  }
+  body #myHeader nav .container .collapse form #searchCoin {
+    width: 80%;
+  }
+  body #innerContent #sctn1 .container-fluid .row div#buttonBox {
+    width: 80%;
+    margin-top: 5px;
+    right: 10%;
+    font-size: 0.8em;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards {
+    padding: 0 10% 0 10%;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox {
+    width: 100%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox {
+    left: 15%;
+    width: 70%;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h2 {
+    font-size: 1.3rem;
+    top: 13%;
+    left: 7%;
+    line-height: 100%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h3 {
+    font-size: 1.2rem;
+    top: 29%;
+    left: 7%;
+    line-height: 100%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox button {
+    font-size: 1.3rem;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo {
+    height: 47%;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice h4 {
+    font-size: 1.3rem;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice div#text {
+    font-size: 1rem;
+    padding: 1% 0;
+    letter-spacing: 1px;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #coinImgBox #currCoinImg {
+    width: 65px;
+    height: 65px;
+    margin: 35% auto;
+  }
+  body #innerContent #InfoSctn {
+    width: 100%;
+    left: 0;
+  }
+  body #innerContent #InfoSctn #contactMe {
+    top: 14%;
+    right: 25%;
+    font-size: 1.5em;
+    margin-left: 2%;
+    border: 1px solid black;
+  }
+  body #innerContent #InfoSctn #student {
+    text-align: left;
+    padding-top: 0.5%;
+    width: 80%;
+    top: 0;
+    left: 23%;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(1) {
+    font-style: italic;
+    color: #070649;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(3) {
+    font-size: 0.8em;
+  }
+  body #innerContent #InfoSctn #quickOverview {
+    top: 21.5%;
+    left: 10%;
+  }
+  body #innerContent #InfoSctn #tech {
+    top: 21.5%;
+    right: 10%;
+    width: 40%;
+  }
+  body #innerContent #chartWindow #canvasBox {
+    width: 85%;
+    margin: 0 auto;
+    padding: 1% 0 1.5%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.99px) {
+  body #myHeader #headlineBox {
+    height: 50%;
+  }
+  body #myHeader nav {
+    height: 50%;
+  }
+  body #myHeader nav #navCollapseBtn {
+    top: 0;
+    left: 10%;
+  }
+  body #myHeader nav .container .collapse form #searchCoin {
+    width: 40%;
+  }
+  body #myHeader nav .container .collapse form #srcBtn {
+    width: 40%;
+  }
+  body #innerContent #sctn1 .container-fluid .row div#buttonBox {
+    width: 65%;
+    margin-top: 5px;
+    right: 17.5%;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards {
+    width: 80%;
+    padding: 0 10% 0 10%;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox {
+    width: 48%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox {
+    left: 20%;
+    height: 65%;
+    width: 60%;
+    border-radius: 25px;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox .colorBoxes {
+    height: 25%;
+    width: 20%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h2 {
+    font-size: 1.5rem;
+    top: 10%;
+    left: 7%;
+    line-height: 100%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h3 {
+    font-size: 1.3rem;
+    top: 29%;
+    left: 7%;
+    line-height: 100%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox button {
+    letter-spacing: 1rem;
+    font-size: 1.3rem;
+    bottom: 5%;
+    right: 7.5%;
+    left: 7.5%;
+    padding: 3% 5%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo {
+    height: 47%;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice h4 {
+    font-size: 1.3rem;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice div#text {
+    font-size: 1rem;
+    padding: 1% 0;
+    letter-spacing: 1px;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #coinImgBox #currCoinImg {
+    width: 65px;
+    height: 65px;
+    margin: 35% auto;
+  }
+  body #innerContent #InfoSctn {
+    margin: 0.5% auto;
+    width: 100%;
+    left: 0;
+  }
+  body #innerContent #InfoSctn #contactMe {
+    top: 14%;
+    right: 25%;
+    font-size: 1.5em;
+    margin-left: 2%;
+    border: 1px solid black;
+  }
+  body #innerContent #InfoSctn #student {
+    text-align: left;
+    padding-top: 0.5%;
+    width: 80%;
+    top: 0;
+    left: 23%;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(1) {
+    font-style: italic;
+    color: #070649;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(3) {
+    font-size: 0.9em;
+  }
+  body #innerContent #InfoSctn #quickOverview {
+    top: 21.5%;
+    left: 10%;
+  }
+  body #innerContent #InfoSctn #tech {
+    top: 21.5%;
+    right: 10%;
+    width: 40%;
+  }
+  body #innerContent #chartWindow #canvasBox {
+    width: 80%;
+    margin: 0 auto;
+    padding: 1% 0 1.5%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199.99px) {
+  body #myHeader nav div.container div.collapse {
+    padding-right: 13vw;
+  }
+  body #innerContent #sctn1 .container-fluid .row div#buttonBox {
+    width: 60%;
+    margin-top: 5px;
+    right: 20%;
+  }
+  body #innerContent #sctn1 .container-fluid .row div#buttonBox #checkSwitch label {
+    font-size: 2.2em;
+    color: #fdfdfd;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    top: 5%;
+    height: 83%;
+    z-index: 1;
+    padding: 0 5% 0 5%;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards::-webkit-scrollbar {
+    width: 2em;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox {
+    border: 2px solid #0b063f;
+    width: 31.5%;
+    margin-bottom: 2%;
+    background-color: rgba(235, 220, 157, 0.45);
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body h5 {
+    font-size: 2.5em;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body p {
+    font-size: 1.5em;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body {
+    background-color: rgba(32, 140, 190, 0.35);
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body img {
+    width: 50%;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body h5 {
+    width: 100%;
+    clear: both;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p {
+    background-color: rgba(0, 0, 0, 0.25);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  body #innerContent #sctn1 .container-fluid .row #boxOfAllCards .myCardBox .card-body .collapse .accordion .card .card-body p span {
+    font-size: 1.3rem;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox {
+    left: 25%;
+    height: 65%;
+    width: 50%;
+    border-radius: 25px;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox .colorBoxes {
+    height: 25%;
+    width: 20%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h2 {
+    font-size: 2rem;
+    top: 10%;
+    left: 10%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox h3 {
+    font-size: 1.5rem;
+    top: 25%;
+    left: 10%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox button {
+    letter-spacing: 1rem;
+    font-size: 1.5rem;
+    bottom: 5%;
+    right: 7.5%;
+    left: 7.5%;
+    padding: 3% 5%;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo {
+    height: 47%;
+    z-index: 2;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice h4 {
+    font-size: 1.5rem;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #currPrice div#text {
+    font-size: 1.2rem;
+    padding: 1% 0;
+    letter-spacing: 2px;
+  }
+  body #innerContent #sctn2 #mySpecialSrcBox #extraInfo #coinImgBox #currCoinImg {
+    width: 75px;
+    height: 75px;
+    margin: 25% auto;
+  }
+  body #innerContent #InfoSctn {
+    margin: 0.5% auto;
+    left: 2.5%;
+    width: 95%;
+  }
+  body #innerContent #InfoSctn #contactMe {
+    top: 8%;
+    right: 1%;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 2%;
+    border: 1px solid black;
+  }
+  body #innerContent #InfoSctn #student {
+    text-align: left;
+    padding-top: 0.5%;
+    width: 70%;
+    top: 0;
+    left: 23%;
+    font-size: 1.8em;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(1) {
+    font-style: italic;
+    color: #070649;
+  }
+  body #innerContent #InfoSctn #student span:nth-child(3) {
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 1200px) {
+  body #myHeader #headlineBox {
+    z-index: 0;
+  }
+  body #myHeader #headlineBox h1 {
+    font-size: 6em;
+    padding: 0.6% 0% 2% 1.5%;
+  }
+}
+/*# sourceMappingURL=mediaQuerys.css.map */
