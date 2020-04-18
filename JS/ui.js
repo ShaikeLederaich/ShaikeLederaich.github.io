@@ -7,6 +7,7 @@ export class UI {
   static endIndex;
   static startIndex = 0;
   static arrToDisplay = [];
+  static howManyCards;
 
   //Toggle Navbar 'Hamburger' on Click
   static hamburgerToggle() {
