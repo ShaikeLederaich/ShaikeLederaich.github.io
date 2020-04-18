@@ -17,10 +17,12 @@ $(function () {
   $('a#main').click(function (e) {
     //On click on 'Home' - First get 'Main' page template & insert to 'Div# innerContent'
     Ajax.getHtmlTemplate('../docs/main.html', 'innerContent');
+    $('.myAlert').fadeOut(500);
+
     //Then - them Build the page
     setTimeout(() => {
       //this function enable to some functions to build the 'main' page
-      buildMainPage()
+      buildMainPage();
     }, 150);
     //Stop Reports Interval
     clearInterval(LiveReports.liveInterval);
@@ -31,13 +33,20 @@ $(function () {
     //On click on 'About' - First get 'About' page template & insert to 'Div# innerContent'
     Ajax.getHtmlTemplate('../docs/about.html', 'innerContent');
     //Stop Reports Interval
+    $('.myAlert').fadeOut(500);
+
     clearInterval(LiveReports.liveInterval);
     e.preventDefault();
   });
+
+  $('a#live').on('click', function (e) {
+    LiveReports.drawChart();
+
+    e.preventDefault();
+  });
+
   //Enable Navbar 'Hamburger' Button
   UI.hamburgerToggle();
   //Get Current Year to the footer
   UI.getCurrYear();
-
-
 });

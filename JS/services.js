@@ -210,34 +210,31 @@ export class LiveReports {
   }
 
   static drawChart() {
-    $('a#live').on('click', function (e) {
-      let chartArrLenght = LiveReports.liveRep.length;
-      //When click on 'LIVE REPORTS' - If The Array of live reports length !== 0
-      if (chartArrLenght !== 0) {
-        //First get 'Chart' page template & insert to 'Div# innerContent'
-        Ajax.getHtmlTemplate('../docs/chart.html', 'innerContent');
-        //Then run chart function
-        setTimeout(() => {
-          LiveReports.chart();
-        }, 100);
-      } else {
-        //If The Array of live reports length === 0
-        let output = `
-        To view the real-time reports - first you need to choose which
-        currencies by moving the switch from "No" to "Yes". You can select
-        up to 5 coins at a time.
-        `;
-        //Show alert message
-        $('.myAlert').text(output);
+    let chartArrLenght = LiveReports.liveRep.length;
+    //When click on 'LIVE REPORTS' - If The Array of live reports length !== 0
+    if (chartArrLenght !== 0) {
+      //First get 'Chart' page template & insert to 'Div# innerContent'
+      Ajax.getHtmlTemplate('../docs/chart.html', 'innerContent');
+      //Then run chart function
+      setTimeout(() => {
+        LiveReports.chart();
+      }, 100);
+    } else {
+      //If The Array of live reports length === 0
+      let output = `
+      To view the real-time reports - first you need to choose which
+      currencies by moving the switch from "No" to "Yes". You can select
+      up to 5 coins at a time.
+      `;
+      //Show alert message
+      $('.myAlert').text(output);
 
-        $('.myAlert').fadeIn(500);
-        //FadeOut Alert
-        setTimeout(() => {
-          $('.myAlert').fadeOut(1000);
-        }, 4000);
-      }
-      e.preventDefault();
-    });
+      $('.myAlert').fadeIn(500);
+      //FadeOut Alert
+      setTimeout(() => {
+        $('.myAlert').fadeOut(1000);
+      }, 4000);
+    }
   }
 
   static async getLiveInfoData(symArr) {
@@ -281,25 +278,28 @@ export class LiveReports {
     );
     let resulte = await response.json();
     console.log(resulte);
+    return resulte;
 
-    //Reset chart datasets & Update chart
-    LiveReports.myChart.data.datasets = [];
-    LiveReports.myChart.update();
+    // if (resulte.Response !== Error) {
+    //   //Reset chart datasets & Update chart
 
-    $.each(resulte, function (indexInArray, valueOfElement) {
-      //Create data object for each resulte
-      let currDataObj = {
-        label: `${indexInArray}`,
-        fill: true,
-        lineTension: 0,
-        borderWidth: 1,
-        data: [],
-      };
-      //Push the data object to the chart datasets & Update chart
-      LiveReports.myChart.data.datasets.push(currDataObj);
-      LiveReports.myChart.update();
-      console.log(LiveReports.myChart.data.datasets);
-    });
+    //   LiveReports.myChart.data.datasets = [];
+    //   LiveReports.myChart.update();
+    //   $.each(resulte, function (indexInArray, valueOfElement) {
+    //     //Create data object for each resulte
+    //     let currDataObj = {
+    //       label: `${indexInArray}`,
+    //       fill: true,
+    //       lineTension: 0,
+    //       borderWidth: 1,
+    //       data: [],
+    //     };
+    //     //Push the data object to the chart datasets & Update chart
+    //     LiveReports.myChart.data.datasets.push(currDataObj);
+    //     LiveReports.myChart.update();
+    //     console.log(LiveReports.myChart.data.datasets);
+    //   });
+    // }
   }
 
   static chart() {
@@ -309,7 +309,52 @@ export class LiveReports {
     //Send the live reports array to fetch function
     LiveReports.createDataObjByFetchResolteAndPushToChartDatasets(
       LiveReports.liveRep
-    );
+    ).then((res) => {
+      if (res.Response === 'Error') {
+        setTimeout(() => {
+          const output = `
+          Sorry, we are unable to provide real-time information on the selected currencies.
+          `;
+          //Show alert message
+          $('.myAlert').text(output);
+          const icon = `
+          <i class="fas fa-times fa-2x" ></i>
+          `;
+          $('.myAlert').append(icon);
+
+          $('.myAlert').fadeIn(500);
+          //Clear Interval
+          clearInterval(LiveReports.liveInterval);
+          //OnClick close icon - Back to main page
+          $('.myAlert > i').on('click', function () {
+            Ajax.getHtmlTemplate('../docs/main.html', 'innerContent');
+            $('.myAlert').fadeOut(500);
+
+            setTimeout(() => {
+              buildMainPage();
+            }, 100);
+          });
+        }, 100);
+      } else {
+        //Reset chart datasets & Update chart
+        LiveReports.myChart.data.datasets = [];
+        LiveReports.myChart.update();
+        $.each(res, function (indexInArray, valueOfElement) {
+          //Create data object for each resulte
+          let currDataObj = {
+            label: `${indexInArray}`,
+            fill: true,
+            lineTension: 0,
+            borderWidth: 1,
+            data: [],
+          };
+          //Push the data object to the chart datasets & Update chart
+          LiveReports.myChart.data.datasets.push(currDataObj);
+          LiveReports.myChart.update();
+          console.log(LiveReports.myChart.data.datasets);
+        });
+      }
+    });
 
     //Set Interval
     LiveReports.liveInterval = setInterval(() => {
@@ -468,7 +513,6 @@ export function buildMainPage() {
   });
 
   //Draw Charts onClick on 'Live Reports'
-  LiveReports.drawChart();
   //Change Css Parameters Dynamic
   UI.changeZIndexForToggleBTN();
   UI.changeHeaderHeightToAuto();
