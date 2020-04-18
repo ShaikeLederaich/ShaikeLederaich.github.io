@@ -1,116 +1,76 @@
 import { UI } from './ui.js';
-import { CryptoCoinObj, Coins } from './coins.js';
+import { Coins } from './coins.js';
 import { Storage } from './Storage.js';
 
 export class Ajax {
-  //%---Get Html Template -> Then Draw The Template Inside The Parent 'Div' -> and Then Run Callback Func---
+  //%---Get Html Template -> Then Draw The Template Inside The Parent 'Div'
 
   static getHtmlTemplate(url, id, callback) {
     console.log(id);
     $.ajax({
       type: 'GET',
       url: url,
-      dataType: 'text'
-    }).done(res => {
+      dataType: 'text',
+    }).done((res) => {
       document.getElementById(id).innerHTML = res;
-      callback();
     });
   }
 
-  //%---Send API 'GET' Request And get All Crypto Coins list
+  //%---Send 'GET' Request to API And get All Crypto Coins list
 
   static getDataFromURL(url) {
     $.ajax({
       type: 'GET',
       url: `${url}`,
-      dataType: 'json'
+      dataType: 'json',
     })
-      .done(response => {
+      .done((response) => {
         //%---Done() - If The Request Succses === No Error
 
         //%---Placing The Array Response To Array of all list coins in Coins class
         Coins.arrAllListOfCoins = response;
 
-        let numOfCards = UI.howManyCardsToDisplay(window.innerWidth);
-
-        UI.addButtons();
-
-        UI.CardsToDisplay(
-          UI.sliceNewArr(UI.startIndex, numOfCards, numOfCards)
-        );
-
-        UI.appendPagination();
-
-        $('#loadNext').on('click', function() {
-          UI.showNextCoins(UI.startIndex, numOfCards);
-          $('#loadPrevious')
-            .parent()
-            .removeClass('disabled');
-        });
-
-        $('#loadPrevious').on('click', function() {
-          UI.showPreviousCoins(UI.startIndex, numOfCards);
-          if (UI.startIndex === 0) {
-            $('#loadPrevious')
-              .parent()
-              .addClass('disabled');
-          }
-        });
-
-        $('#checkSwitch').on('click', function() {
-          UI.showSwitchYes(numOfCards);
-        });
-
-        $('#clearSwitch').on('click', function() {
-          LiveReports.resetLiveRep();
-        });
-
-        LiveReports.drawChart();
-        UI.changeZIndexForToggleBTN();
-        UI.changeHeaderHeightToAuto();
-        UI.closeCollapseWhenClickOnALink();
-        UI.removeFromLiveRepArrFromTheModal(LiveReports.pushFromModal);
-
-        $('#srcBtn').click(function(e) {
-          searchCryptoCoin()
-            .then(a => {
-              console.log(a);
-            })
-            .catch(err => console.log(err));
-          e.preventDefault();
-        });
+        //this function enable to some functions to build the 'main' page
+        buildMainPage();
       })
       //%---Fail() - If The Request Not Succses === Error
-      .fail(err => {
+      .fail((err) => {
         console.log(err.responseText);
       });
   }
 
   static async sendAPI_GETRequestByID(id, target) {
-    let date1 = new Date();
-    let timeOnFirstClick = date1.getTime();
+    //Get the date
+    const date1 = new Date();
+    //The time right now
+    const timeOnFirstClick = date1.getTime();
 
-    let response = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
+    //Send URL To fetch & Wait response
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/coins/${id}`
+    );
+    //Then response.json()
+    const obj = await response.json();
 
-    let obj = await response.json();
-
+    //Temp vars contain coin image & coin prices array
     const currImg = obj.image.large;
     const currPrice = obj.market_data.current_price;
 
-    let currCryptoCoin = new CryptoCoinObj(
-      currImg,
-      currPrice,
-      timeOnFirstClick
-    );
+    //Create Temp object with the current parameters
+    const currCryptoCoin = {};
+    currCryptoCoin.image = currImg;
+    currCryptoCoin.price = {
+      Usd: `${currPrice.usd}`,
+      Eur: `${currPrice.eur}`,
+      Ils: `${currPrice.ils}`,
+    };
+    currCryptoCoin.time = timeOnFirstClick;
 
-    //%---Add to Array Of coins objects With Extra Info
-    Coins.addExtraParam(currCryptoCoin);
-
+    //Set to session storage - Need to send coin obj & coin Id
     Storage.setToSessionStorage(currCryptoCoin, id);
 
+    //Send target & coin Id to this function
     Storage.getCoinDetailsFromSessionStorage(id, target);
-
-    moreInfo(target, id, currCryptoCoin.image, currCryptoCoin.price);
   }
 }
 
@@ -119,30 +79,47 @@ export function moreInfo(target, id, img, price) {
     $(
       `#boxOfAllCards > div#${id} > .card-body > .collapse > .accordion > .progress`
     ).show();
-    UI.pushCollapseToDivByID(id, img, price);
+    //If the target name !== 'moreInfo'
+    UI.drawInfoCardsDynamicly(id, img, price);
   } else {
+    //If the target name === 'moreInfo'
     UI.drwaSearchingExtraInfo(img, price);
   }
 }
 
 function searchCryptoCoin() {
-  let promise = new Promise((resolve, reject) => {
-    let userSearch = document.getElementById('searchCoin').value;
-
-    let findAMatchingCurrency = Coins.findCoinBySearch(userSearch);
+  const promise = new Promise((resolve, reject) => {
+    const userSearch = document.getElementById('searchCoin').value;
+    console.log(userSearch);
+    //Search coin from all coin array by symbol
+    const findAMatchingCurrency = Coins.findCoinBySearch(userSearch);
 
     if (findAMatchingCurrency !== undefined) {
+      //If the search result !== 'undefined'
+      //Placing the result parameters in temp object
       Coins.searchCoinObj.id = findAMatchingCurrency.id;
       Coins.searchCoinObj.sym = findAMatchingCurrency.symbol;
 
-      Ajax.getHtmlTemplate(
-        '../docs/specialBox.html',
-        'sctn2',
-        UI.drawSearchCoinResult
-      );
-
+      //Get 'SpecialBox' page template & insert to 'Div# innerContent'
+      Ajax.getHtmlTemplate('../docs/specialBox.html', 'searchBoxSctn');
+      //Then show search result
+      setTimeout(() => {
+        UI.drawSearchCoinResult();
+      }, 100);
       resolve("Ok! It's Worked!");
     } else {
+      //If the search result === 'undefined' - Show Alert message
+      const output = `
+      No matching currency found.
+      Search for currency by currency symbol.
+        `;
+      $('.myAlert').text(output);
+
+      $('.myAlert').fadeIn(500);
+      setTimeout(() => {
+        $('.myAlert').fadeOut(1000);
+      }, 2500);
+
       reject('Please search for the currency exactly according to its symbol');
     }
   });
@@ -152,77 +129,56 @@ function searchCryptoCoin() {
 //%---This Function Get Information About Specific Crypto Coin By 'Id' --- First Check In Session Storage And If The Specific 'Id' Does not exist There --- Send API 'GET' Request By the same 'Id'
 
 export function getCoinInfoByID() {
+  //Get The Array of all coins
   let coinsList = Coins.getList();
-  $.each(coinsList, function(indexInArray, valueOfElement) {
+  $.each(coinsList, function (indexInArray, valueOfElement) {
     let id = valueOfElement.id;
-    let sym = valueOfElement.symbol;
 
-    $(`div#${id}`).each(function(index, element) {
-      $(this).on('click', `button#btn-${id}`, function(e) {
+    $(`div#${id}`).each(function (index, element) {
+      //When Click on 'More Info' Button of each div that his id is The same Like coin 'Id'
+      $(this).on('click', `button#btn-${id}`, function (e) {
         let target = e.target;
-        // console.log(target);
-        //%---Get Item From Session Storage By Crypto Coin 'Id' --- The 'Id' Use to be A Key In Storage
+
+        //Send this function coin 'Id' & Event.target
         Storage.getCoinDetailsFromSessionStorage(id, target);
       });
     });
   });
 }
 
-export function drawInfoPage() {
-  let sctnInfo = document.getElementById('InfoSctn');
-  let chartWindow = document.getElementById('chartWindow');
-  chartWindow.style.zIndex = -1;
-  $('#sctn1').fadeOut(1500);
-  $('canvas#myChart').fadeOut(1500);
-  $('#canvasBox').fadeOut(1500);
-  $('#InfoSctn').fadeIn(1500);
-  sctnInfo.style.zIndex = 2;
-}
-
-export function drawMainPage() {
-  $('a#main').click(function(e) {
-    let chartWindow = document.getElementById('chartWindow');
-    let sctnInfo = document.getElementById('InfoSctn');
-    chartWindow.style.zIndex = -1;
-    sctnInfo.style.zIndex = -1;
-    $('canvas#myChart').fadeOut(1500);
-    $('#canvasBox').fadeOut(1500);
-    $('#InfoSctn').fadeOut(1500);
-    $('#sctn1').fadeIn(1500);
-    clearInterval(LiveReports.liveInterval);
-    e.preventDefault();
-  });
-}
-
 export class LiveReports {
   static liveRep = [];
   static newsym;
-
   static liveInterval;
-
   static myChart;
 
   static resetLiveRep() {
+    //Reset Live Reports array
     LiveReports.liveRep = [];
+
+    //Set empty array to local storage
     Storage.setLiveRepToLocalStorage(LiveReports.liveRep);
-    $('input.liveRepCheck').each(function(index, element) {
+
+    // Change each switch tuggle to 'No'
+    $('input.liveRepCheck').each(function (index, element) {
       $(this).prop('checked', false);
     });
   }
 
   static pushAndRemovedFromLiveReportsBefore6(sym) {
+    //Check if the symbol coin already imside the Live Reports Array.
     if (LiveReports.liveRep.includes(sym)) {
       let num = LiveReports.liveRep.indexOf(sym);
       console.log(num);
+      // If 'true' - Remove him
       LiveReports.liveRep.splice(num, 1);
-
-      console.log(LiveReports.liveRep);
-      Storage.setLiveRepToLocalStorage(LiveReports.liveRep);
     } else {
+      //If 'false' - Push him to Live Reports array
       LiveReports.liveRep.push(sym);
-      console.log(LiveReports.liveRep);
-      Storage.setLiveRepToLocalStorage(LiveReports.liveRep);
     }
+    console.log(LiveReports.liveRep);
+    //Then Set the Live Reports array to local storage
+    Storage.setLiveRepToLocalStorage(LiveReports.liveRep);
   }
 
   static pushFromModal() {
@@ -230,73 +186,55 @@ export class LiveReports {
       LiveReports.liveRep.length < 5 &&
       !LiveReports.liveRep.includes(LiveReports.newsym)
     ) {
+      //Push new symbol coin to live report array
       LiveReports.liveRep.push(LiveReports.newsym);
       console.log(LiveReports.liveRep);
 
-      let sym = LiveReports.newsym.toLowerCase();
-      let coinObj = Coins.findCoinBySearch(sym);
-
+      let coinObj = Coins.findCoinBySearch(LiveReports.newsym);
+      //Change the switch of the current coin card to 'Yes'
       $(`div#${coinObj.id} > label > .liveRepCheck`).prop('checked', true);
 
+      //Set the live report array to local storage
       Storage.setLiveRepToLocalStorage(LiveReports.liveRep);
     }
   }
 
   static removeAttrToOpenModal() {
-    let sym = LiveReports.newsym.toLowerCase();
-    let coinObj = Coins.findCoinBySearch(sym);
+    //Send coin symbol -> Return coin object
+    let coinObj = Coins.findCoinBySearch(LiveReports.newsym);
 
+    //Remove the attributes that open the modal
     $(`div#${coinObj.id} > label > .liveRepCheck`).removeAttr('data-toggle');
 
     $(`div#${coinObj.id} > label > .liveRepCheck`).removeAttr('data-target');
   }
 
-  static chartCallback() {
-    let chartWindow = document.getElementById('chartWindow');
-    let sctnInfo = document.getElementById('InfoSctn');
-
-    $('#sctn1').fadeOut(1500);
-    $('#InfoSctn').fadeOut(1500);
-    // $('#chartWindow').html(chart);
-    $('#canvasBox').fadeIn(1500);
-    setTimeout(() => {
-      chartWindow.style.zIndex = 1;
-      sctnInfo.style.zIndex = -1;
-    }, 1500);
-    LiveReports.chart();
-  }
-
   static drawChart() {
-    $('a#live').on('click', function(e) {
+    $('a#live').on('click', function (e) {
       let chartArrLenght = LiveReports.liveRep.length;
-
+      //When click on 'LIVE REPORTS' - If The Array of live reports length !== 0
       if (chartArrLenght !== 0) {
-        $('a#live')
-          .parent()
-          .tooltip('hide');
-        Ajax.getHtmlTemplate(
-          '../docs/chart.html',
-          'chartWindow',
-          LiveReports.chartCallback
-        );
-      } else {
-        console.log('123');
-        $('a#live')
-          .parent()
-          .attr({
-            'data-toggle': 'tooltip',
-            'data-placement': 'top',
-            title:
-              'To view real-time reports - You must first select which currencies by moving the switch from "No" to "Yes".'
-          });
-        $('a#live')
-          .parent()
-          .tooltip('show');
+        //First get 'Chart' page template & insert to 'Div# innerContent'
+        Ajax.getHtmlTemplate('../docs/chart.html', 'innerContent');
+        //Then run chart function
         setTimeout(() => {
-          $('a#live')
-            .parent()
-            .tooltip('hide');
-        }, 2000);
+          LiveReports.chart();
+        }, 100);
+      } else {
+        //If The Array of live reports length === 0
+        let output = `
+        To view the real-time reports - first you need to choose which
+        currencies by moving the switch from "No" to "Yes". You can select
+        up to 5 coins at a time.
+        `;
+        //Show alert message
+        $('.myAlert').text(output);
+
+        $('.myAlert').fadeIn(500);
+        //FadeOut Alert
+        setTimeout(() => {
+          $('.myAlert').fadeOut(1000);
+        }, 4000);
       }
       e.preventDefault();
     });
@@ -308,23 +246,32 @@ export class LiveReports {
     );
     let resulte = await response.json();
 
+    //Get current time
     let currTime = LiveReports.getFetchTime();
     let indexNum = 0;
     console.log(resulte);
+    //Save the keys in array
     let resArr = Object.keys(resulte);
 
-    $.each(resulte, function(indexInArray, valueOfElement) {
+    $.each(resulte, function (indexInArray, valueOfElement) {
       let currPrice;
+      //Each result
       for (let usdPrice of Object.values(valueOfElement)) {
+        //Get the result value(price)
         currPrice = usdPrice;
       }
+      //Add color to the data object by index number
       LiveReports.addColor(LiveReports.myChart, indexNum);
+      //Add data to the data object by index number
       LiveReports.addData(LiveReports.myChart, indexNum, currPrice);
 
+      //Each round add 1 to 'indexNum'
       indexNum += 1;
     });
 
+    //Add time lebel to chart
     LiveReports.addTimeLabel(LiveReports.myChart, currTime);
+    //return the array of keys of result
     return resArr;
   }
 
@@ -335,14 +282,20 @@ export class LiveReports {
     let resulte = await response.json();
     console.log(resulte);
 
-    $.each(resulte, function(indexInArray, valueOfElement) {
+    //Reset chart datasets & Update chart
+    LiveReports.myChart.data.datasets = [];
+    LiveReports.myChart.update();
+
+    $.each(resulte, function (indexInArray, valueOfElement) {
+      //Create data object for each resulte
       let currDataObj = {
         label: `${indexInArray}`,
         fill: true,
         lineTension: 0,
         borderWidth: 1,
-        data: []
+        data: [],
       };
+      //Push the data object to the chart datasets & Update chart
       LiveReports.myChart.data.datasets.push(currDataObj);
       LiveReports.myChart.update();
       console.log(LiveReports.myChart.data.datasets);
@@ -350,17 +303,23 @@ export class LiveReports {
   }
 
   static chart() {
+    //Clear chart interval
+    clearInterval(LiveReports.liveInterval);
+
+    //Send the live reports array to fetch function
     LiveReports.createDataObjByFetchResolteAndPushToChartDatasets(
       LiveReports.liveRep
     );
 
+    //Set Interval
     LiveReports.liveInterval = setInterval(() => {
-      LiveReports.getLiveInfoData(LiveReports.liveRep).then(res => {
+      //Send live reports array to get live information
+      LiveReports.getLiveInfoData(LiveReports.liveRep).then((res) => {
+        //Update chart title
         LiveReports.updateChartTitle(LiveReports.myChart, res);
       });
     }, 2000);
 
-    // Chart.defaults.global.defaultFontSize = 20;
     Chart.defaults.global.defaultFontSize = 15;
     Chart.defaults.global.maintainAspectRatio = false;
 
@@ -370,15 +329,15 @@ export class LiveReports {
       type: 'line',
       data: {
         labels: [],
-        datasets: []
+        datasets: [],
       },
       options: {
         tooltips: {
-          mode: 'point'
+          mode: 'point',
         },
         title: {
           display: true,
-          text: ''
+          text: '',
         },
         scales: {
           yAxes: [
@@ -387,15 +346,15 @@ export class LiveReports {
                 display: true,
                 labelString: 'Coins Value',
                 fontStyle: 'bold',
-                fontSize: '20'
+                fontSize: '20',
               },
               ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
     });
   }
 
@@ -466,4 +425,69 @@ export class LiveReports {
     let fetchTime = `${hh}:${mm}:${ss}`;
     return fetchTime;
   }
+}
+
+export function buildMainPage() {
+  //How much cards to display - By width screen
+  let numOfCards = UI.howManyCardsToDisplay(window.innerWidth);
+
+  //Display 'Reset Switches' button & 'Show checked only' Checkbox When First time Website loading
+  UI.addButtons();
+
+  //Display Cards of coins When First time Website loading
+  UI.CardsToDisplay(
+    //Slice new Array to display from 'Coins.arrAllListOfCoins'
+    UI.sliceNewArr(UI.startIndex, numOfCards, numOfCards)
+  );
+
+  //Display Pagination When First time Website loading
+  UI.appendPagination();
+
+  $('#loadNext').on('click', function () {
+    //Load The next cards to display On Click 'Next' Button
+    UI.showNextCoins(UI.startIndex, numOfCards);
+    $('#loadPrevious').parent().removeClass('disabled');
+  });
+
+  $('#loadPrevious').on('click', function () {
+    //Load The previous cards to display On Click 'Previous' Button
+    UI.showPreviousCoins(UI.startIndex, numOfCards);
+    if (UI.startIndex === 0) {
+      $('#loadPrevious').parent().addClass('disabled');
+    }
+  });
+
+  $('#checkSwitch').on('click', function () {
+    //Display just the cards that their tuggle button is 'Yes'
+    UI.showSwitchYes(numOfCards);
+  });
+
+  $('#clearSwitch').on('click', function () {
+    //Reset the Array of coin to live reports & move theirs tuggle button to 'No'
+    LiveReports.resetLiveRep();
+  });
+
+  //Draw Charts onClick on 'Live Reports'
+  LiveReports.drawChart();
+  //Change Css Parameters Dynamic
+  UI.changeZIndexForToggleBTN();
+  UI.changeHeaderHeightToAuto();
+
+  //Close Navbar collapse onClick on 'li' Tag
+  UI.closeNavbarCollapseWhenClickOnLiTag();
+
+  //Remove Coins from an Live Reports Array from the Modal
+  UI.removeFromLiveRepArrFromTheModal(LiveReports.pushFromModal);
+
+  $('#srcBtn').click(function (e) {
+    //Checks whether the search value exists in the Array of currencies received from the API
+
+    //if the search value !== undefined - draw Box With the information --- else - Show Alert message
+    searchCryptoCoin()
+      .then((a) => {
+        console.log(a);
+      })
+      .catch((err) => console.log(err));
+    e.preventDefault();
+  });
 }

@@ -1,34 +1,15 @@
-export class CryptoCoinObj {
-  constructor(img, currPrice, currTime) {
-    this.image = img;
-    this.price = {
-      Usd: `${currPrice.usd}`,
-      Eur: `${currPrice.eur}`,
-      Ils: `${currPrice.ils}`
-    };
-    this.time = currTime;
-  }
-  showCoinInfo() {
-    console.log(`
-    Current Price in US Dollar: ${this.usd}\n
-    Current Price in Euru: ${this.eur}\n
-    Current Price in IL Shekel: ${this.ils}\n
-    `);
-  }
-}
-
-
 export class Coins {
   static arrAllListOfCoins = [];
   static arrCoinsWithExtraParam = [];
   static searchCoinObj = {}
 
-  static addToList(obj) {
-    this.arrAllListOfCoins.push(obj);
-  }
+  //Get the all coins array 
   static getList() {
     return this.arrAllListOfCoins;
   }
+
+  //Find specific coin
+  //Send coin Symbol -> return coin Object
   static findCoinBySearch(userSearch) {
     if (userSearch === userSearch.toUpperCase()) {
       userSearch = userSearch.toLowerCase();
@@ -37,12 +18,5 @@ export class Coins {
     let findAMatchingCurrency = arr.find(coin => coin.symbol === userSearch);
 
     return findAMatchingCurrency;
-  }
-
-  static addExtraParam(obj) {
-    this.arrCoinsWithExtraParam.push(obj);
-  }
-  static getArrWithExtraParam() {
-    return this.arrCoinsWithExtraParam;
   }
 }

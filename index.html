@@ -59,7 +59,7 @@
                 <a class="nav-link" id="live" href="#">Live Reports</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="info" href="#">Info</a>
+                <a class="nav-link" id="info" href="#">About</a>
               </li>
             </ul>
 
@@ -68,7 +68,7 @@
                 id="searchCoin"
                 class="form-control mr-sm-2"
                 type="text"
-                placeholder="Search"
+                placeholder="Search coin by symbol"
               />
               <button id="srcBtn" class="btn myBTN" type="submit">
                 Search
@@ -80,71 +80,52 @@
       </nav>
       <!-- End Container Of Header -->
     </header>
+
     <section id="innerContent">
-      <section id="sctn1" class="h-100">
-        <div class="container-fluid h-100">
-          <div class="row h-100">
-            <div
-              id="boxOfAllCards"
-              class="col col-lg-9 col-md-11 d-flex flex-wrap w-100  justify-content-around mt-3 mx-auto"
-            >
-            <div class="loader"></div>
-          </div>
-            <div class="w-100"></div>
-          </div>
-        </div>
-      </section>
+      <!-- <div class="loader"></div> -->
+    </section>
+    <!-- End 'Inner-Content' Section -->
 
-      <section id="sctn2">
+    <section id="searchBoxSctn"></section>
 
-        
-      </section>
-
-      <section id="sctnModal">
-        <div class="modal" id="myModal">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title m-auto h2">Live Reports Coins List</h3>
+    <div id="modalSctn">
+      <div class="modal" id="myModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title m-auto h2">Live Reports Coins List</h3>
+            </div>
+            <div class="modal-body">
+              <div class="text-center">
+                <h4 class="modal-title m-auto h3 p-2 bg-warning">
+                  The option to get a live report, possible for 5 maximum crypto
+                  coins at the same time!
+                </h4>
+                <h5 class="modal-title m-auto h4 p-2 bg-success">
+                  Please select which currency you would like to give up by
+                  moving the switch to 'Yes' and then press the 'Confirm' button
+                  Or click 'Cancel' to cancel
+                </h5>
               </div>
-              <div class="modal-body">
-                <div class="text-center">
-                  <h4 class="modal-title m-auto h3 p-2 bg-warning">
-                    The option to get a live report, possible for 5 maximum
-                    crypto coins at the same time!
-                  </h4>
-                  <h5 class="modal-title m-auto h4 p-2 bg-success">
-                    Please select which currency you would like to give up by
-                    moving the switch to 'Yes' and then press the 'Confirm'
-                    button Or click 'Cancel' to cancel
-                  </h5>
-                </div>
-                <ol></ol>
-              </div>
-              <div class="modal-footer">
-                <button id="confirm" class="btn btn-primary btn-block">
-                  Confirm Changes
-                </button>
-                <button
-                  id="cancel"
-                  class="btn btn-secondary btn-block"
-                  data-dismiss="modal"
-                >
-                  Cancel
-                </button>
-              </div>
+              <ol></ol>
+            </div>
+            <div class="modal-footer">
+              <button id="confirm" class="btn btn-primary btn-block">
+                Confirm Changes
+              </button>
+              <button
+                id="cancel"
+                class="btn btn-secondary btn-block"
+                data-dismiss="modal"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
-        <!-- End Modal -->
-      </section>
-      <section id="chartWindow"></section>
-      <section id="InfoSctn">
-        
-      </section>
-    </section>
-
-    <!-- End 'Inner-Content' Section -->
+      </div>
+      <!-- End Modal -->
+    </div>
 
     <footer id="myFooter" class="text-center p-4 fixed-bottom">
       <p id="p1">
