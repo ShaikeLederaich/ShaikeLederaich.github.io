@@ -9,6 +9,8 @@ import { UI } from './ui.js';
 // On the Live Report page, you'll see real-time reports of the currencies you've selected before On the About page you will find this information as well as information about the website developer.
 
 $(function () {
+  //How much cards to display - By width screen
+  UI.howManyCards = UI.howManyCardsToDisplay(window.innerWidth);
   //On Load - First get Main page template & insert to 'Div# innerContent'
   Ajax.getHtmlTemplate('../docs/main.html', 'innerContent');
   //Then - Get Data from Api
@@ -22,7 +24,8 @@ $(function () {
     //Then - them Build the page
     setTimeout(() => {
       //this function enable to some functions to build the 'main' page
-      buildMainPage();
+      console.log(UI.startIndex)
+      buildMainPage(UI.startIndex, UI.endIndex, UI.howManyCards);
     }, 150);
     //Stop Reports Interval
     clearInterval(LiveReports.liveInterval);

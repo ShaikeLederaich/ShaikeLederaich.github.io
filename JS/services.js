@@ -31,7 +31,9 @@ export class Ajax {
         Coins.arrAllListOfCoins = response;
 
         //this function enable to some functions to build the 'main' page
-        buildMainPage();
+        console.log(UI.startIndex);
+        console.log(UI.endIndex);
+        buildMainPage(UI.startIndex, UI.endIndex, UI.howManyCards);
       })
       //%---Fail() - If The Request Not Succses === Error
       .fail((err) => {
@@ -331,7 +333,7 @@ export class LiveReports {
             $('.myAlert').fadeOut(500);
 
             setTimeout(() => {
-              buildMainPage();
+              buildMainPage(UI.startIndex, UI.endIndex, UI.howManyCards);
             }, 100);
           });
         }, 100);
@@ -472,9 +474,9 @@ export class LiveReports {
   }
 }
 
-export function buildMainPage() {
-  //How much cards to display - By width screen
-  let numOfCards = UI.howManyCardsToDisplay(window.innerWidth);
+export function buildMainPage(startIndex, endIndex, numOfCards) {
+  UI.startIndex = startIndex;
+  UI.endIndex = endIndex;
 
   //Display 'Reset Switches' button & 'Show checked only' Checkbox When First time Website loading
   UI.addButtons();
@@ -482,7 +484,7 @@ export function buildMainPage() {
   //Display Cards of coins When First time Website loading
   UI.CardsToDisplay(
     //Slice new Array to display from 'Coins.arrAllListOfCoins'
-    UI.sliceNewArr(UI.startIndex, numOfCards, numOfCards)
+    UI.sliceNewArr(UI.startIndex, UI.endIndex, numOfCards)
   );
 
   //Display Pagination When First time Website loading
