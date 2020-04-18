@@ -4,11 +4,18 @@ import { Storage } from './Storage.js';
 import { Coins } from './coins.js';
 
 export class UI {
-  //%---How many cards to Display By screen Width
   static endIndex;
   static startIndex = 0;
   static arrToDisplay = [];
 
+  //Toggle Navbar 'Hamburger' on Click
+  static hamburgerToggle() {
+    $('.second-button').on('click', function () {
+      $('.animated-icon2').toggleClass('open');
+    });
+  }
+
+  //Check how much cards to display By screen width
   static howManyCardsToDisplay(innerWidth) {
     if (innerWidth < 576) {
       this.endIndex = 10;
@@ -21,28 +28,26 @@ export class UI {
   }
 
   static sliceNewArr(startIndex, numberOfCardsToDisplay, length) {
-    //%---Slice new Array To Display
+    //Slice new Array To Display
     this.arrToDisplay = Coins.arrAllListOfCoins.slice(
       startIndex,
       numberOfCardsToDisplay
     );
     if (this.arrToDisplay.length < length) {
-      $('#loadNext')
-        .parent()
-        .addClass('disabled');
+      $('#loadNext').parent().addClass('disabled');
     } else {
-      $('#loadNext')
-        .parent()
-        .removeClass('disabled');
+      $('#loadNext').parent().removeClass('disabled');
     }
     return this.arrToDisplay;
   }
 
   static CardsToDisplay(arrToDisplay) {
+    //Clear parent Box
     $('#boxOfAllCards').empty();
+    //Add parallax image
     this.appendParallaxImg();
-    //%---Draw Cards to UI
-    $.each(arrToDisplay, function(indexInArray, valueOfElement) {
+    $.each(arrToDisplay, function (indexInArray, valueOfElement) {
+      //Draw Cards in the UI for every coin thats in 'arrToDisplay'
       UI.drawCardsInsideboxOfAllCards(
         indexInArray,
         valueOfElement.symbol,
@@ -50,7 +55,11 @@ export class UI {
         valueOfElement.id
       );
     });
+
+    //Checking out what is stored in Local Storage & After that moves the toggle switch to 'Yes' in the cards of the coins that in local storage
     Storage.getLiveRepFromLocalStorage();
+
+    //Torn On these function
     UI.updateModalAndLiveArrFromAllCards();
     getCoinInfoByID();
   }
@@ -59,7 +68,9 @@ export class UI {
     this.startIndex = index + numOfCards;
     this.endIndex += numOfCards;
 
+    //Display Cards of coins
     this.CardsToDisplay(
+      //Slice new Array to display from 'Coins.arrAllListOfCoins'
       this.sliceNewArr(this.startIndex, this.endIndex, numOfCards)
     );
   }
@@ -68,19 +79,29 @@ export class UI {
     this.startIndex = index - numOfCards;
     this.endIndex -= numOfCards;
 
+    //Display Cards of coins
     this.CardsToDisplay(
+      //Slice new Array to display from 'Coins.arrAllListOfCoins'
       this.sliceNewArr(this.startIndex, this.endIndex, numOfCards)
     );
   }
 
+  //Show just the coins their switch is 'Yes'
   static showSwitchYes(numOfCards) {
+    //If the 'Show Only Checked' checkbox is Not false
     if (!$('#checkSwitch > input')[0].checked === false) {
+      //Create new temp array
       let currArr = [];
-      $.each(LiveReports.liveRep, function(indexInArray, valueOfElement) {
+      //Each coin that inside array of Live reports
+      $.each(LiveReports.liveRep, function (indexInArray, valueOfElement) {
+        //Push coin object coin to new array
+        //Coin object thats what return from findCoinBySearch() function after we send coin symbol
         currArr.push(Coins.findCoinBySearch(valueOfElement));
       });
+      //Send the new array this function
       UI.CardsToDisplay(currArr);
     } else {
+      //If the 'Show Only Checked' checkbox is FALSE - Show The same crads that you saw before
       this.CardsToDisplay(
         this.sliceNewArr(this.startIndex, this.endIndex, numOfCards)
       );
@@ -88,20 +109,21 @@ export class UI {
   }
 
   static addButtons() {
+    //Add Checkbox & Button to main page
     let output = `
     <div id="buttonBox">
-    <div id="checkSwitch">
-    
-    <label class=" form-check-label" for="exampleCheck1">Show Checked Only</label>
-    <input type="checkbox" id="exampleCheck1">
-    </div>
-    <button class="myBTN btn" id="clearSwitch" type="button" class="btn">Reset Switches</button>
+      <div id="checkSwitch">
+      <label class=" form-check-label" for="exampleCheck1">Show Only Checked</label>
+      <input type="checkbox" id="exampleCheck1">
+      </div>
+      <button class="myBTN btn" id="clearSwitch" type="button" class="btn">Reset Switches</button>
     </div>
     `;
-    $('#sctn1 > .container-fluid > .row').prepend(output);
+    $('#mainSctn > .container-fluid > .row').prepend(output);
   }
 
   static appendPagination() {
+    //Add Pagination to main page
     let output = `
     <nav aria-label="Search results" class="d-flex w-100">
       <ul class="pagination m-auto justify-content-center">
@@ -114,10 +136,11 @@ export class UI {
       </ul>
     </nav>`;
 
-    $('#sctn1 > .container-fluid > .row').append(output);
+    $('#mainSctn > .container-fluid > .row').append(output);
   }
 
   static appendParallaxImg() {
+    //Add parallax image to main page
     let output = `
     <div id="parallaxImg"></div>
     `;
@@ -125,6 +148,7 @@ export class UI {
   }
 
   static drawCardsInsideboxOfAllCards(index, symbol, name, id) {
+    //Draw coins cards inside the parent 'Div'
     let output = `
       <div data-index="${index}" id="${id}" class="card myCardBox">
         <label class="rocker rocker-small">
@@ -153,12 +177,15 @@ export class UI {
     $('#boxOfAllCards').append(output);
   }
 
-  static pushCollapseToDivByID(id, imgLink, currPriceObj) {
+  //Draw Information card dynamicly to collapse
+  static drawInfoCardsDynamicly(id, imgLink, currPriceObj) {
+    //Hide progree bar & 'More Info' button
     $(
       `#boxOfAllCards > div#${id} > .card-body > .collapse > .accordion > .progress`
     ).hide();
     $(`button#btn-${id}`).hide();
 
+    //Draw Info Card
     $(
       `div#${id} > div.card-body > div#collapse-${id} > div.accordion > div.card`
     ).html(`
@@ -178,54 +205,70 @@ export class UI {
         </div>
       `);
 
-    $(`#readLess-${id}`).click(function(e) {
+    //OnClick on 'Read Less' button -> Close collapse & Show 'More Info' button
+    $(`#readLess-${id}`).click(function (e) {
       $(`button#btn-${id}`).show();
       e.preventDefault();
     });
   }
 
   static drawSearchCoinResult() {
+    //Draw the result of user search on Special box
     let mainHeader = document.getElementById('myHeader');
-    let boxOfAllCards = document.getElementById('boxOfAllCards');
-    let sctn2 = document.getElementById('sctn2');
-    sctn2.style.zIndex = 1;
-  
+    let searchBoxSctn = document.getElementById('searchBoxSctn');
+    let mySpecialSrcBox = document.getElementById('mySpecialSrcBox');
+
+    searchBoxSctn.style.zIndex = 1;
+    mySpecialSrcBox.style.display = 'flex';
+
+    //Hide dynamicly box with extra info
     $('article#extraInfo').hide();
+
     $('h2 > span').text(`${Coins.searchCoinObj.sym}`);
     $('h3 > span').text(`${Coins.searchCoinObj.id}`);
-    Animations.testSpecialBoxAnimation();
+    //Enable animation
+    Animations.specialBoxAnimation();
     mainHeader.style.zIndex = -1;
-    boxOfAllCards.style.zIndex = -1;
-    UI.drawAndHideMoreInfoForSpeacialBox(Coins.searchCoinObj.id);
-    UI.updateModalAndLiveArrFromSpecialBox(Coins.searchCoinObj.sym, Coins.searchCoinObj.id);
+    //Enable this functions
+    //Show Extra Inofrmation
+    UI.showExtraInfo(Coins.searchCoinObj.id);
+    //Update Modal
+    UI.updateModalAndLiveArrFromSpecialBox(
+      Coins.searchCoinObj.sym,
+      Coins.searchCoinObj.id
+    );
+    //Hide Special box
+    UI.hideSpecialBox();
   }
 
-  static drawAndHideMoreInfoForSpeacialBox(id) {
-    let mainHeader = document.getElementById('myHeader');
-
-    $('#mySpecialSrcBox > #moreInfo').click(function(e) {
+  static showExtraInfo(id) {
+    $('#mySpecialSrcBox > #moreInfo').click(function (e) {
       let target = e.target.id;
 
-      console.log(target);
-
+      //Set extra info to session storage
       Storage.getCoinDetailsFromSessionStorage(id, target);
 
+      //FadeIn The box with Extra info
       $('article#extraInfo').fadeIn(2000);
       e.preventDefault();
     });
+  }
 
-    $('#mySpecialSrcBox > i').click(function(e) {
+  static hideSpecialBox() {
+    let mainHeader = document.getElementById('myHeader');
+    //Hide the Special Box
+    $('#mySpecialSrcBox > i').click(function (e) {
       $('#mySpecialSrcBox').fadeOut(1500);
       mainHeader.style.zIndex = 0;
       setTimeout(() => {
-        boxOfAllCards.style.zIndex = 1;
-        sctn2.style.zIndex = -1;
+        searchBoxSctn.style.zIndex = -1;
       }, 1500);
       e.preventDefault();
     });
   }
 
   static drwaSearchingExtraInfo(img, price) {
+    //Draw Extra info (prices & image)
     $('#extraInfo > #currPrice > #text > #p1 > span').text(price.Usd);
     $('#extraInfo > #currPrice > #text > #p2 > span').text(price.Eur);
     $('#extraInfo > #currPrice > #text > #p3 > span').text(price.Ils);
@@ -237,14 +280,17 @@ export class UI {
     sym = sym.toUpperCase();
     console.log(sym);
     if (LiveReports.liveRep.includes(sym)) {
+      //If the specific coin already included at the local storage & the array of live reports -> Switch is on 'Yes'
       $('#mySpecialSrcBox > label > input').prop('checked', true);
-      $('#mySpecialSrcBox > label > input').on('click', function() {
+      $('#mySpecialSrcBox > label > input').on('click', function () {
+        //Enable this function
         updateModalAndLiveArr(sym, id);
         $(`div#${id} > label > .liveRepCheck`).prop('checked', false);
       });
       console.log('Yes');
     } else {
-      $('#mySpecialSrcBox > label > input').on('click', function() {
+      //If the specific coin NOT included at the local storage & the array of live reports
+      $('#mySpecialSrcBox > label > input').on('click', function () {
         updateModalAndLiveArr(sym, id);
         $(`div#${id} > label > .liveRepCheck`).prop('checked', true);
       });
@@ -253,60 +299,72 @@ export class UI {
   }
 
   static updateModalAndLiveArrFromAllCards() {
+    //Get Array of all list of coins
     let coinsList = Coins.getList();
-    let eTarget;
 
-    $.each(coinsList, function(indexInArray, valueOfElement) {
+    $.each(coinsList, function (indexInArray, valueOfElement) {
+      //Get 'Id' & 'Sym' from every coin
       let id = valueOfElement.id;
       let sym = valueOfElement.symbol;
       sym = sym.toUpperCase();
 
-      $(`div#${id}`).each(function(index, element) {
-        $(this).on('click', 'input', function(e) {
-          eTarget = e.target;
+      $(`div#${id}`).each(function (index, element) {
+        $(this).on('click', 'input', function (e) {
+          //When Click ON toggle switch of each div that is 'Id' is the same like coin 'id' - Go to this function
           updateModalAndLiveArr(sym, id);
         });
       });
     });
   }
 
+  //Remove coins from the array of live reports from the modal
   static removeFromLiveRepArrFromTheModal(callback) {
-    $('.modal-footer > #confirm').on('click', function(e) {
+    $('.modal-footer > #confirm').on('click', function (e) {
+      //Create list of all inputs at the modal
       let allInputsAtList = $('ol')
         .children()
         .children()
         .children('label')
         .children('input');
 
-      $.each(allInputsAtList, function(indexInArray, input) {
+      //Each input
+      $.each(allInputsAtList, function (indexInArray, input) {
+        //If input (checkbox) is checked
         if (this.checked === true) {
+          //Take the coin symbol from the specific line at list & placing in var
           let currSym = $(
-            `ol > li:nth-child(${indexInArray + 1}) > p > span:nth-child(2)`
+            `ol > li:nth-child(${indexInArray + 1}) > p > span:nth-child(3)`
           ).text();
-          currSym = currSym.toUpperCase();
-          console.log(currSym);
 
+          currSym = currSym.toUpperCase();
+
+          console.log(LiveReports.liveRep);
+
+          //Get the index number of the coin symbol at the array of live reports
           let indexLiveRep = LiveReports.liveRep.indexOf(currSym);
 
           console.log(indexLiveRep);
 
+          //Take the coin Id from the specific line at list & placing in var
           let currId = $(
             `ol > li:nth-child(${indexInArray + 1}) > p > span:first-child`
           ).text();
           console.log(currId);
 
+          //Remove coin from array of live reports
           LiveReports.liveRep.splice(indexLiveRep, 1);
           console.log(LiveReports.liveRep);
 
+          //Change the switch to 'No'
           $(`div#${currId} > label > .liveRepCheck`).prop('checked', false);
         }
       });
+      //Hide modal
       $('#myModal').modal('hide');
     });
 
-    $('#myModal').on('hidden.bs.modal', function(e) {
-      console.log('12345');
-
+    //When modal is hidden
+    $('#myModal').on('hidden.bs.modal', function (e) {
       LiveReports.removeAttrToOpenModal();
       $('.liveRepCheck').prop('disabled', false);
 
@@ -314,19 +372,25 @@ export class UI {
     });
   }
 
+  //Add line to the list on modal
   static addLiToModalList(arr) {
+    //Clear list
     $('#myModal > .modal-dialog > .modal-content > .modal-body > ol').empty();
 
+    //Take the new coin symbol that we want to put into the array of live report and put it into a variable
     let newSym = arr[5];
 
+    //Then remove this coin symbol
     arr.pop();
+    //Set to lacal storage without this symbol
     Storage.setLiveRepToLocalStorage(arr);
 
+    //For symbol at the array
     for (let sym of arr) {
-      sym = sym.toLowerCase();
+      //Find coin object
       let currObj = Coins.findCoinBySearch(sym);
-      // console.log(currObj);
 
+      //Create new line to the list with the coin object parameters
       let output = `
       <li id="${currObj.id}">
         <p>
@@ -339,16 +403,16 @@ export class UI {
         </p>
       </li>
       `;
-
+      //Append to the list
       $('#myModal > .modal-dialog > .modal-content > .modal-body > ol').append(
         output
       );
 
-      //%---Style For Modal List
+      //%---Add Style For Modal List
 
       //%--01) 'ol' Style
       $('#myModal > .modal-dialog > .modal-content > .modal-body > ol').css({
-        'list-style-position': 'inside'
+        'list-style-position': 'inside',
       });
 
       //%--02) 'li' Style
@@ -357,7 +421,7 @@ export class UI {
       ).css({
         'font-size': '1.3rem',
         'border-bottom': '4px dashed black',
-        'padding-bottom': '20px'
+        'padding-bottom': '20px',
       });
 
       //%--03) 'p' Style
@@ -367,7 +431,7 @@ export class UI {
         display: 'inline-block',
         'font-weight': 'bold',
         'font-style': 'italic',
-        margin: '10px 15px'
+        margin: '10px 15px',
       });
 
       //%--04) 'btn toggle' Style
@@ -375,7 +439,7 @@ export class UI {
         `#myModal > .modal-dialog > .modal-content > .modal-body > ol > li > p > .rocker`
       ).css({
         right: '3%',
-        'font-size': '0.65em'
+        'font-size': '0.65em',
       });
 
       //%--05) 'span' Style
@@ -386,17 +450,20 @@ export class UI {
         color: 'Blue',
         'background-color': 'rgba(0, 0, 0, 0.25)',
         'font-weight': 'bold',
-        'font-style': 'none'
+        'font-style': 'none',
       });
     }
+    //Return the new coin symbol that we wanted to put into the array of live report before modal is opening
     return newSym;
   }
 
-  static closeCollapseWhenClickOnALink() {
+  static closeNavbarCollapseWhenClickOnLiTag() {
     let navBar = document.getElementsByTagName('nav');
+    //All 'li' tag from the navbar to list
     let navUL = navBar[0].children[0].children[1].children[0];
 
-    $(navUL).on('click', 'li', function() {
+    //OnClick Each 'li' tag
+    $(navUL).on('click', 'li', function () {
       $('.animated-icon2').removeClass('open');
       $('#collapsibleNavId').collapse('hide');
     });
@@ -405,11 +472,11 @@ export class UI {
   //%---Change 'Header' Height From '20%' To 'Auto' When 'Click' on Collapse Button inside Navbar
   static changeHeaderHeightToAuto() {
     let myHeader = document.getElementById('myHeader');
-    $(myHeader).on('click', 'button#navCollapseBtn', function() {
+    $(myHeader).on('click', 'button#navCollapseBtn', function () {
       myHeader.style.height = 'auto';
       myHeader.style.zIndex = 2;
     });
-    $('#collapsibleNavId').on('hidden.bs.collapse', function() {
+    $('#collapsibleNavId').on('hidden.bs.collapse', function () {
       myHeader.style.height = '182px';
       myHeader.style.zIndex = 0;
     });
@@ -418,43 +485,51 @@ export class UI {
   //%---Change Toggle-BTN Z-Index When Nav Collapse Is Open
   static changeZIndexForToggleBTN() {
     let cardToggle = document.querySelectorAll('label.rocker');
-    $('#collapsibleNavId').on('show.bs.collapse', function() {
+    $('#collapsibleNavId').on('show.bs.collapse', function () {
       console.log('Open');
       cardToggle[0].style.zIndex = 0;
       cardToggle[1].style.zIndex = 0;
     });
-    $('#collapsibleNavId').on('hide.bs.collapse', function() {
+    $('#collapsibleNavId').on('hide.bs.collapse', function () {
       console.log('Close');
       cardToggle[0].style.zIndex = 2;
       cardToggle[1].style.zIndex = 2;
     });
   }
+
   static getCurrYear() {
     let d = new Date();
-    let a = $('#myFooter')
-      .children('#p2')
-      .children()[1];
+    let a = $('#myFooter').children('#p2').children()[1];
     $(a).text(d.getFullYear());
   }
 }
 
 function updateModalAndLiveArr(sym, id) {
+  //First send coin symbol to this function
   LiveReports.pushAndRemovedFromLiveReportsBefore6(sym);
 
+  // If Live Reports array already includs 5 cois - to the next coin -  Add this Attributes to open 'Modal'
   if (LiveReports.liveRep.length > 5) {
     $(this).attr({
       'data-toggle': 'modal',
-      'data-target': '#myModal'
+      'data-target': '#myModal',
     });
 
+    //Then send the Live Reports Array to this function.
+    //This function Create 'li' tag inside the 'ol' tag for every coin at Live Reports Array.
+
+    //This function return The symbol of the coin that not entered the Live Report array
     LiveReports.newsym = UI.addLiToModalList(LiveReports.liveRep);
 
     setTimeout(() => {
+      //Show the 'Modal'
       $('#myModal').modal('show');
 
+      //Change The Switch toggle Of the coin that not entered to 'No'
       $(`div#${id} > label > .liveRepCheck`).prop('checked', false);
     }, 200);
 
+    //Make all Another Switches toggle disabled
     $('.liveRepCheck').prop('disabled', true);
   }
 }

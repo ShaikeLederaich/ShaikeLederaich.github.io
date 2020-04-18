@@ -8,10 +8,11 @@ export class Storage {
   }
 
   static getCoinDetailsFromSessionStorage(cryptoId, target) {
+    //Get item from session storage whose name is the same like the coin Id
     let currCoin = JSON.parse(sessionStorage.getItem(`${cryptoId}`));
 
     if (currCoin === null) {
-      //%---If The 'Id' Does not exist In Storage, Send Ajax 'GET' Request By 'Id' And get The Parameters
+      //If The 'Id' Does not exist In Storage, Send Ajax 'GET' Request By 'Id' And get more information about him
       Ajax.sendAPI_GETRequestByID(cryptoId, target)
         .then(console.log('Its Null'))
         .catch(error => {
@@ -19,11 +20,11 @@ export class Storage {
           console.error(error);
         });
     } else {
-      //%---If the ID exists in Storage, So check when the first Ajax call was made.
+      //If the ID exists in Storage, So check when the first Ajax call was made.
       let date2 = new Date();
       let timeOnSecondClick = date2.getTime();
       let timeBetween = Math.abs(timeOnSecondClick - currCoin.time);
-      //%---If more than two minutes have passed, Send Ajax 'GET' Request By 'Id'Again
+      //If more than two minutes have passed, Send Ajax 'GET' Request By 'Id' Again
       if (timeBetween > 120000) {
         Ajax.sendAPI_GETRequestByID(cryptoId, target)
           .then(console.log('Two minutes passed, load information again'))
@@ -34,6 +35,7 @@ export class Storage {
       } else {
         console.log('Loading Information');
         console.log(currCoin);
+        //Send Parameters to this function
         moreInfo(target, cryptoId, currCoin.image, currCoin.price);
       }
     }
@@ -52,8 +54,6 @@ export class Storage {
       list = JSON.parse(list);
 
       for (let sym of list) {
-        sym = sym.toLowerCase();
-        // console.log(sym);
         let currObjCoin = Coins.findCoinBySearch(sym);
 
         $(`div#${currObjCoin.id} > label > .liveRepCheck`).prop(

@@ -9,17 +9,15 @@
           z-index: 1;
         }
       }
+      #borderBottomHeadline {
+        display: none;
+      }
       nav {
         height: 50%;
         #navCollapseBtn {
           position: absolute;
           top: 0;
         }
-      }
-      #borderBottomHeadline {
-        display: none;
-      }
-      nav {
         .container {
           .collapse {
             form {
@@ -36,14 +34,14 @@
       }
     }
     #innerContent {
-      #sctn1 {
+      #mainSctn {
         .container-fluid {
           .row {
             div#buttonBox {
               width: 80%;
               margin-top: 5px;
               right: 10%;
-              font-size: 0.8em;
+              font-size: 0.7em;
             }
             #boxOfAllCards {
               padding: 0 10% 0 10%;
@@ -54,49 +52,7 @@
           }
         }
       }
-      #sctn2 {
-        #mySpecialSrcBox {
-          left: 15%;
-          width: 70%;
-          z-index: 2;
-          h2 {
-            font-size: 1.3rem;
-            top: 13%;
-            left: 7%;
-            line-height: 100%;
-          }
-          h3 {
-            font-size: 1.2rem;
-            top: 29%;
-            left: 7%;
-            line-height: 100%;
-          }
-          button {
-            font-size: 1.3rem;
-          }
-          #extraInfo {
-            height: 47%;
-            z-index: 2;
-            #currPrice {
-              h4 {
-                font-size: 1.3rem;
-              }
-              div#text {
-                font-size: 1rem;
-                padding: 1% 0;
-                letter-spacing: 1px;
-              }
-            }
-            #coinImgBox {
-              #currCoinImg {
-                width: 65px;
-                height: 65px;
-                margin: 35% auto;
-              }
-            }
-          }
-        }
-      }
+      
       #InfoSctn {
         width: 100%;
         left: 0;
@@ -144,6 +100,49 @@
         }
       }
     }
+    #searchBoxSctn {
+      #mySpecialSrcBox {
+        left: 15%;
+        width: 70%;
+        z-index: 2;
+        h2 {
+          font-size: 1.3rem;
+          top: 13%;
+          left: 7%;
+          line-height: 100%;
+        }
+        h3 {
+          font-size: 1.2rem;
+          top: 29%;
+          left: 7%;
+          line-height: 100%;
+        }
+        button {
+          font-size: 1.3rem;
+        }
+        #extraInfo {
+          height: 47%;
+          z-index: 2;
+          #currPrice {
+            h4 {
+              font-size: 1.3rem;
+            }
+            div#text {
+              font-size: 1rem;
+              padding: 1% 0;
+              letter-spacing: 1px;
+            }
+          }
+          #coinImgBox {
+            #currCoinImg {
+              width: 65px;
+              height: 65px;
+              margin: 35% auto;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -161,8 +160,6 @@
           top: 0;
           left: 10%;
         }
-      }
-      nav {
         .container {
           .collapse {
             form {
@@ -178,7 +175,7 @@
       }
     }
     #innerContent {
-      #sctn1 {
+      #mainSctn {
         .container-fluid {
           .row {
             div#buttonBox {
@@ -196,60 +193,7 @@
           }
         }
       }
-      #sctn2 {
-        #mySpecialSrcBox {
-          left: 20%;
-          height: 65%;
-          width: 60%;
-          border-radius: 25px;
-          z-index: 2;
-          .colorBoxes {
-            height: 25%;
-            width: 20%;
-          }
-          h2 {
-            font-size: 1.5rem;
-            top: 10%;
-            left: 7%;
-            line-height: 100%;
-          }
-          h3 {
-            font-size: 1.3rem;
-            top: 29%;
-            left: 7%;
-            line-height: 100%;
-          }
-          button {
-            letter-spacing: 1rem;
-            font-size: 1.3rem;
-            bottom: 5%;
-            right: 7.5%;
-            left: 7.5%;
-            padding: 3% 5%;
-          }
-          #extraInfo {
-            height: 47%;
-            z-index: 2;
-            #currPrice {
-              h4 {
-                font-size: 1.3rem;
-              }
-              div#text {
-                font-size: 1rem;
-                padding: 1% 0;
-                letter-spacing: 1px;
-              }
-            }
-            #coinImgBox {
-              #currCoinImg {
-                width: 65px;
-                height: 65px;
-                margin: 35% auto;
-              }
-            }
-          }
-        }
-      }
+      
       #InfoSctn {
         margin: 0.5% auto;
         width: 100%;
@@ -299,6 +243,60 @@
         }
       }
     }
+    #searchBoxSctn {
+      #mySpecialSrcBox {
+        left: 20%;
+        height: 65%;
+        width: 60%;
+        border-radius: 25px;
+        z-index: 2;
+        .colorBoxes {
+          height: 25%;
+          width: 20%;
+        }
+        h2 {
+          font-size: 1.5rem;
+          top: 10%;
+          left: 7%;
+          line-height: 100%;
+        }
+        h3 {
+          font-size: 1.3rem;
+          top: 29%;
+          left: 7%;
+          line-height: 100%;
+        }
+        button {
+          letter-spacing: 1rem;
+          font-size: 1.3rem;
+          bottom: 5%;
+          right: 7.5%;
+          left: 7.5%;
+          padding: 3% 5%;
+        }
+        #extraInfo {
+          height: 47%;
+          z-index: 2;
+          #currPrice {
+            h4 {
+              font-size: 1.3rem;
+            }
+            div#text {
+              font-size: 1rem;
+              padding: 1% 0;
+              letter-spacing: 1px;
+            }
+          }
+          #coinImgBox {
+            #currCoinImg {
+              width: 65px;
+              height: 65px;
+              margin: 35% auto;
+            }
+          }
+        }
+      }
+    }
   }
 }
 //%---Normal/Desktops/Landscape Smartphone
@@ -315,7 +313,7 @@
       }
     }
     #innerContent {
-      #sctn1 {
+      #mainSctn {
         .container-fluid {
           .row {
             div#buttonBox {
@@ -384,58 +382,7 @@
           }
         }
       }
-      #sctn2 {
-        #mySpecialSrcBox {
-          left: 25%;
-          height: 65%;
-          width: 50%;
-          border-radius: 25px;
-          z-index: 2;
-          .colorBoxes {
-            height: 25%;
-            width: 20%;
-          }
-          h2 {
-            font-size: 2rem;
-            top: 10%;
-            left: 10%;
-          }
-          h3 {
-            font-size: 1.5rem;
-            top: 25%;
-            left: 10%;
-          }
-          button {
-            letter-spacing: 1rem;
-            font-size: 1.5rem;
-            bottom: 5%;
-            right: 7.5%;
-            left: 7.5%;
-            padding: 3% 5%;
-          }
-          #extraInfo {
-            height: 47%;
-            z-index: 2;
-            #currPrice {
-              h4 {
-                font-size: 1.5rem;
-              }
-              div#text {
-                font-size: 1.2rem;
-                padding: 1% 0;
-                letter-spacing: 2px;
-              }
-            }
-            #coinImgBox {
-              #currCoinImg {
-                width: 75px;
-                height: 75px;
-                margin: 25% auto;
-              }
-            }
-          }
-        }
-      }
+      
       #InfoSctn {
         margin: 0.5% auto;
         left: 2.5%;
@@ -464,6 +411,58 @@
             }
             &:nth-child(3) {
               font-size: 0.9em;
+            }
+          }
+        }
+      }
+    }
+    #searchBoxSctn {
+      #mySpecialSrcBox {
+        left: 25%;
+        height: 65%;
+        width: 50%;
+        border-radius: 25px;
+        z-index: 2;
+        .colorBoxes {
+          height: 25%;
+          width: 20%;
+        }
+        h2 {
+          font-size: 2rem;
+          top: 10%;
+          left: 10%;
+        }
+        h3 {
+          font-size: 1.5rem;
+          top: 25%;
+          left: 10%;
+        }
+        button {
+          letter-spacing: 1rem;
+          font-size: 1.5rem;
+          bottom: 5%;
+          right: 7.5%;
+          left: 7.5%;
+          padding: 3% 5%;
+        }
+        #extraInfo {
+          height: 47%;
+          z-index: 2;
+          #currPrice {
+            h4 {
+              font-size: 1.5rem;
+            }
+            div#text {
+              font-size: 1.2rem;
+              padding: 1% 0;
+              letter-spacing: 2px;
+            }
+          }
+          #coinImgBox {
+            #currCoinImg {
+              width: 75px;
+              height: 75px;
+              margin: 25% auto;
             }
           }
         }
